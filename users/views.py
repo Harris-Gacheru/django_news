@@ -53,3 +53,11 @@ class LogoutAPI(views.APIView):
         resp.data = {'message': 'Logged out'}
 
         return resp
+
+class UserAPI(views.APIView):
+    authentication_classes = (authentication.CustomAuthentication, )
+    permission_classes = (permissions.IsAuthenticated, )
+
+    def get(self, request):
+        serializer = user_serializer.UserSerializer(request.user)
+        return response.Response(serializer.data, status=status.HTTP_200_OK)
