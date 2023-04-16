@@ -2,6 +2,7 @@ from django.http import Http404
 from .serializer import CategorySerializer, ArticleSerializer
 from rest_framework import response,views, status, permissions
 from . import models
+from users.authentication import CustomAuthentication
 
 class CategoriesAPI(views.APIView):
     def get(self, request):
@@ -12,6 +13,9 @@ class CategoriesAPI(views.APIView):
         return response.Response({'message': 'Categories not found', 'data': []}, status=status.HTTP_404_NOT_FOUND)
 
 class CategoryCreateAPI(views.APIView):
+    authentication_classes = (CustomAuthentication, )
+    permission_classes = (permissions.IsAdminUser, )
+    
     def post(self, request):
         serializer = CategorySerializer(data=request.data)
 
