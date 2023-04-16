@@ -12,7 +12,7 @@ class Article(models.Model):
     title = models.CharField(verbose_name='Article Title', max_length=255)
     published_at = models.DateField(verbose_name="Publish Date")
     author_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.title
